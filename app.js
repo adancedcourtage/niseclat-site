@@ -276,7 +276,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const state = {
     lang: localStorage.getItem("niseclat_lang") || "fr",
     filter: "all",
-    cart: Number(localStorage.getItem("niseclat_cart") || 0),
+    cartItems: JSON.parse(localStorage.getItem("niseclat_cart_items") || "[]"),
+    get cart() { return this.cartItems.reduce((s, i) => s + i.qty, 0); },
     likedProducts: new Set(JSON.parse(localStorage.getItem("niseclat_liked_products") || "[]")),
     likedArticles: new Set(JSON.parse(localStorage.getItem("niseclat_liked_articles") || "[]")),
     comments: JSON.parse(localStorage.getItem("niseclat_comments") || "[]"),
@@ -491,7 +492,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function persist() {
-    localStorage.setItem("niseclat_cart", String(state.cart));
+    localStorage.setItem("niseclat_cart_items", JSON.stringify(state.cartItems));
     localStorage.setItem("niseclat_liked_products", JSON.stringify([...state.likedProducts]));
     localStorage.setItem("niseclat_liked_articles", JSON.stringify([...state.likedArticles]));
     localStorage.setItem("niseclat_comments", JSON.stringify(state.comments));
@@ -525,13 +526,72 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function addToCart() {
-    state.cart += 1;
+  function addToCart(productId) {
+    const product = products.find((p) => p.id === productId);
+    if (!product) return;
+    const existing = state.cartItems.find((item) => item.id === productId);
+    if (existing) {
+      existing.qty += 1;
+    } else {
+      state.cartItems.push({ id: product.id, name: product.name, price: product.price, qty: 1 });
+    }
     $("#cartCount").textContent = state.cart;
     $(".cart-button").classList.add("is-bouncing");
     setTimeout(() => $(".cart-button").classList.remove("is-bouncing"), 520);
     persist();
     showToast(text("product.added"));
+    openCartPanel();
+  }
+
+  function openCartPanel() {
+    renderCartPanel();
+    $("#cartPanel").classList.add("is-open");
+    $("#cartPanel").setAttribute("aria-hidden", "false");
+    $("#cartOverlay").hidden = false;
+    document.body.classList.add("no-scroll");
+  }
+
+  function closeCartPanel() {
+    $("#cartPanel").classList.remove("is-open");
+    $("#cartPanel").setAttribute("aria-hidden", "true");
+    $("#cartOverlay").hidden = true;
+    document.body.classList.remove("no-scroll");
+  }
+
+  function renderCartPanel() {
+    const items = state.cartItems;
+    const itemsEl = $("#cartPanelItems");
+    if (items.length === 0) {
+      itemsEl.innerHTML = `<p class="cart-empty">Votre panier est vide.</p>`;
+      $("#cartTotal").textContent = "0 MAD";
+      return;
+    }
+    itemsEl.innerHTML = items.map((item) => `
+      <div class="cart-item">
+        <div class="cart-item-info">
+          <strong>${escapeHtml(item.name[state.lang] || item.name.fr)}</strong>
+          <span>${escapeHtml(item.price)}</span>
+        </div>
+        <div class="cart-item-qty">
+          <button type="button" class="qty-btn" data-qty-dec="${item.id}">−</button>
+          <span>${item.qty}</span>
+          <button type="button" class="qty-btn" data-qty-inc="${item.id}">+</button>
+        </div>
+        <button type="button" class="cart-item-remove" data-cart-remove="${item.id}" aria-label="Supprimer">
+          <svg><use href="#icon-close"></use></svg>
+        </button>
+      </div>`).join("");
+    const total = items.reduce((sum, item) => sum + parseInt(item.price, 10) * item.qty, 0);
+    $("#cartTotal").textContent = total + " MAD";
+  }
+
+  function buildWhatsappUrl() {
+    const lines = state.cartItems.map(
+      (item) => `- ${item.name.fr} x${item.qty} = ${parseInt(item.price, 10) * item.qty} MAD`
+    );
+    const total = state.cartItems.reduce((s, i) => s + parseInt(i.price, 10) * i.qty, 0);
+    const msg = `Bonjour NISECLAT 👋\nJe souhaite commander :\n${lines.join("\n")}\n\nTotal : ${total} MAD`;
+    return `https://wa.me/212661382156?text=${encodeURIComponent(msg)}`;
   }
 
   function openDrawer() {
@@ -566,34 +626,6 @@ document.addEventListener("DOMContentLoaded", () => {
       state.activeStep = (state.activeStep + 1) % ritualSteps.length;
       renderRitual();
     }, 5000);
-  }
-
-  function initCursor() {
-    const outer = $(".cursor-outer");
-    const inner = $(".cursor-inner");
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let outerX = mouseX;
-    let outerY = mouseY;
-    window.addEventListener("mousemove", (event) => {
-      document.body.classList.add("cursor-ready");
-      mouseX = event.clientX;
-      mouseY = event.clientY;
-      inner.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
-    });
-    function raf() {
-      outerX += (mouseX - outerX) * 0.1;
-      outerY += (mouseY - outerY) * 0.1;
-      outer.style.transform = `translate(${outerX}px, ${outerY}px) translate(-50%, -50%)`;
-      requestAnimationFrame(raf);
-    }
-    raf();
-    document.addEventListener("mouseover", (event) => {
-      if (event.target.closest("a,button,input,textarea,.product-card,.ingredient-card,.article-card")) outer.classList.add("is-hover");
-    });
-    document.addEventListener("mouseout", (event) => {
-      if (event.target.closest("a,button,input,textarea,.product-card,.ingredient-card,.article-card")) outer.classList.remove("is-hover");
-    });
   }
 
   function initScrollSpy() {
@@ -673,7 +705,36 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     const add = event.target.closest("[data-add-cart]");
     if (add) {
-      addToCart();
+      addToCart(add.dataset.addCart);
+      return;
+    }
+    const qtyInc = event.target.closest("[data-qty-inc]");
+    if (qtyInc) {
+      const item = state.cartItems.find((i) => i.id === qtyInc.dataset.qtyInc);
+      if (item) item.qty += 1;
+      persist();
+      renderCartPanel();
+      $("#cartCount").textContent = state.cart;
+      return;
+    }
+    const qtyDec = event.target.closest("[data-qty-dec]");
+    if (qtyDec) {
+      const item = state.cartItems.find((i) => i.id === qtyDec.dataset.qtyDec);
+      if (item) {
+        item.qty -= 1;
+        if (item.qty <= 0) state.cartItems = state.cartItems.filter((i) => i.id !== qtyDec.dataset.qtyDec);
+      }
+      persist();
+      renderCartPanel();
+      $("#cartCount").textContent = state.cart;
+      return;
+    }
+    const cartRemove = event.target.closest("[data-cart-remove]");
+    if (cartRemove) {
+      state.cartItems = state.cartItems.filter((i) => i.id !== cartRemove.dataset.cartRemove);
+      persist();
+      renderCartPanel();
+      $("#cartCount").textContent = state.cart;
       return;
     }
     const productLike = event.target.closest("[data-like-product]");
@@ -698,6 +759,20 @@ document.addEventListener("DOMContentLoaded", () => {
       renderRitual();
       startRitualTimer();
     }
+  });
+
+  $("#cartToggle").addEventListener("click", openCartPanel);
+  $("#cartPanelClose").addEventListener("click", closeCartPanel);
+  $("#cartOverlay").addEventListener("click", closeCartPanel);
+  $("#cartWhatsappBtn").addEventListener("click", () => {
+    if (state.cartItems.length === 0) { showToast("Votre panier est vide."); return; }
+    window.open(buildWhatsappUrl(), "_blank");
+  });
+  $("#cartClearBtn").addEventListener("click", () => {
+    state.cartItems = [];
+    persist();
+    renderCartPanel();
+    $("#cartCount").textContent = 0;
   });
 
   $("#menuButton").addEventListener("click", openDrawer);
@@ -991,7 +1066,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   localize();
   observeReveals();
-  initCursor();
   initScrollSpy();
   initRipples();
   initSparklesGif();
