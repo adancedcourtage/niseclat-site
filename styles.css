@@ -134,50 +134,20 @@ button { border: 0; }
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 0;
+  gap: 10px;
   min-width: max-content;
 }
-.brand-monogram {
-  display: grid;
-  width: 48px;
-  height: 48px;
-  place-items: center;
-  background: var(--ink);
-  border-radius: 10px 0 0 10px;
-  color: #fff;
-  font-family: var(--serif);
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+.brand-svg {
+  width: 46px;
+  height: 46px;
   flex-shrink: 0;
-  position: relative;
-  /* Annule tout héritage ou animation qui pourrait interférer */
-  box-shadow: none;
-  border: none;
-  animation: none;
-}
-/* Séparateur décoratif */
-.brand-monogram::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  top: 20%;
-  height: 60%;
-  width: 1px;
-  background: rgba(255,255,255,0.2);
 }
 .brand-word {
-  background: var(--ink);
-  color: #fff;
+  color: var(--ink);
   font-family: var(--serif);
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 700;
-  letter-spacing: 0.18em;
-  padding: 0 15px 0 12px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  border-radius: 0 10px 10px 0;
+  letter-spacing: 0.06em;
 }
 .main-nav {
   display: flex;
@@ -1272,16 +1242,7 @@ input:focus, textarea:focus {
   grid-template-columns: 1.3fr .75fr .75fr 1.1fr;
   gap: 34px;
 }
-.footer-brand .brand-monogram {
-  background: rgba(255,255,255,0.12);
-  border-radius: 10px 0 0 10px;
-  color: #fff;
-}
-.footer-brand .brand-word {
-  background: rgba(255,255,255,0.12);
-  border-radius: 0 10px 10px 0;
-  color: #fff;
-}
+.footer-brand .brand-word { color: #fff; }
 .footer-intro p { max-width: 360px; margin: 16px 0; }
 .social-links { display: flex; gap: 12px; }
 .social-links a {
@@ -1547,7 +1508,8 @@ body[dir="rtl"] [data-reveal="slide-right"] { transform: translateX(50px); }
   }
   .main-nav { display: none; }
   .menu-button { display: grid; }
-  .brand-word { font-size: 13px; letter-spacing: 0.14em; }
+  .brand-word { font-size: 15px; }
+  .brand-svg { width: 38px; height: 38px; }
   .lang-toggle { display: none; }
   .hero-section,
   .story-section,
@@ -1598,7 +1560,6 @@ body[dir="rtl"] [data-reveal="slide-right"] { transform: translateX(50px); }
     padding: 9px 10px;
   }
   .brand-word { display: none; }
-  .brand-monogram { border-radius: 10px; }
   .hero-section, .section, .ingredient-section, .story-section, .ritual-section {
     padding-inline: 18px;
   }

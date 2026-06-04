@@ -39,7 +39,23 @@
 
     <header id="siteHeader" class="site-header" data-reveal="fade-down">
       <a class="brand magnetic" href="#accueil" aria-label="NISECLAT accueil">
-        <span class="brand-monogram">NS</span>
+        <svg class="brand-svg" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="nsGold" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%"   stop-color="#e8d090"/>
+              <stop offset="45%"  stop-color="#c9a84c"/>
+              <stop offset="100%" stop-color="#9a6f2e"/>
+            </linearGradient>
+          </defs>
+          <!-- Double cercle doré -->
+          <circle cx="36" cy="36" r="33" fill="none" stroke="url(#nsGold)" stroke-width="1.4"/>
+          <circle cx="36" cy="36" r="29" fill="none" stroke="url(#nsGold)" stroke-width="0.7"/>
+          <!-- Monogramme NS -->
+          <text x="36" y="47" text-anchor="middle"
+                font-family="Playfair Display, Georgia, serif"
+                font-size="26" font-weight="600"
+                fill="url(#nsGold)" letter-spacing="1">NS</text>
+        </svg>
         <span class="brand-word">NISECLAT</span>
       </a>
       <nav class="main-nav" aria-label="Navigation principale">
@@ -195,7 +211,21 @@
     <footer class="site-footer">
       <div class="footer-grid">
         <div class="footer-intro">
-          <a class="brand footer-brand" href="#accueil"><span class="brand-monogram">NS</span><span class="brand-word">NISECLAT</span></a>
+          <a class="brand footer-brand" href="#accueil">
+            <svg class="brand-svg" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="nsGoldFooter" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%"   stop-color="#e8d090"/>
+                  <stop offset="45%"  stop-color="#c9a84c"/>
+                  <stop offset="100%" stop-color="#9a6f2e"/>
+                </linearGradient>
+              </defs>
+              <circle cx="36" cy="36" r="33" fill="none" stroke="url(#nsGoldFooter)" stroke-width="1.4"/>
+              <circle cx="36" cy="36" r="29" fill="none" stroke="url(#nsGoldFooter)" stroke-width="0.7"/>
+              <text x="36" y="47" text-anchor="middle" font-family="Playfair Display, Georgia, serif" font-size="26" font-weight="600" fill="url(#nsGoldFooter)" letter-spacing="1">NS</text>
+            </svg>
+            <span class="brand-word">NISECLAT</span>
+          </a>
           <p data-i18n="footer.text">Clean beauty marocaine, naturelle, sensorielle et pensée pour les peaux exigeantes.</p>
           <div class="social-links" aria-label="Réseaux sociaux">
             <a href="#" aria-label="Instagram"><svg><use href="#icon-instagram"></use></svg></a>
