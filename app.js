@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
       shop: {
         eyebrow: "Boutique",
         title: "Les essentiels NISECLAT",
-        text: "Une sélection courte, premium et performante : éclat, hydratation, peau nette et protection naturelle.",
+        text: "Une sélection courte, premium et performante : éclat, hydratation, peau douce et protection naturelle.",
       },
       filters: { all: "Tous", glow: "Éclat", hydration: "Hydratation", acne: "Acné", maternity: "Grossesse" },
       product: { safe: "Pregnancy Safe", add: "Ajouter au panier", added: "✓ Ajouté au panier" },
@@ -207,19 +207,19 @@ document.addEventListener("DOMContentLoaded", () => {
       id: "vitc",
       image: "assets/images/vitamine-c.png",
       filters: ["all", "glow", "hydration", "maternity"],
-      price: "90 MAD",
-      oldPrice: "",
+      price: "99 MAD",
+      oldPrice: "149 MAD",
       likes: 148,
       name: { fr: "Sérum Vitamine C", en: "Vitamin C Serum", ar: "سيروم فيتامين C" },
       benefit: { fr: "Unifie le teint, réduit les taches et ravive l’éclat nocturne.", en: "Evens tone, reduces spots and revives nighttime glow.", ar: "يوحد اللون ويخفف البقع ويعيد الإشراقة ليلا." },
-      tags: { fr: ["Orange", "Kiwi", "Nuit"], en: ["Orange", "Kiwi", "Night"], ar: ["برتقال", "كيوي", "ليلا"] },
+      tags: { fr: ["Orange", "Kiwi", "Figue de Barbarie"], en: ["Orange", "Kiwi", "Figue de Barbarie"], ar: ["برتقال", "كيوي", "تين بربري"] },
     },
     {
       id: "hyaluronic",
       image: "assets/images/serum-hyaluronique.png",
       filters: ["all", "hydration", "maternity"],
-      price: "150 MAD",
-      oldPrice: "",
+      price: "149 MAD",
+      oldPrice: "189 MAD",
       likes: 119,
       name: { fr: "Sérum Acide Hyaluronique", en: "Hyaluronic Acid Serum", ar: "سيروم حمض الهيالورونيك" },
       benefit: { fr: "Repulpe, assouplit et gorge la peau d’une hydratation fraîche.", en: "Plumps, softens and floods skin with fresh hydration.", ar: "يمتلئ وينعم البشرة بترطيب منعش." },
@@ -252,7 +252,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const filters = ["all", "glow", "hydration", "acne", "maternity"];
   const ingredients = [
     { icon: "icon-lemon", key: "vitc", image: "assets/images/vitamine-c.png", product: "Sérum Vit C", title: { fr: "Vitamine C", en: "Vitamin C", ar: "فيتامين C" }, benefits: { fr: ["Réveille l’éclat naturel", "Aide à uniformiser le teint", "Cible et atténue les taches"], en: ["Revives natural glow", "Helps even skin tone", "Targets and fades spots"], ar: ["يعيد الإشراقة الطبيعية", "يساعد على توحيد اللون", "يستهدف ويخفف البقع"] } },
-    { icon: "icon-drop", key: "ha", image: "assets/images/serum-hyaluronique.png", product: "Sérum Acide Hyaluronique", title: { fr: "Acide Hyaluronique", en: "Hyaluronic Acid", ar: "حمض الهيالورونيك" }, benefits: { fr: ["Hydratation profonde 72h", "Repulpe et assouplit", "Visage lisse et rebondi"], en: ["Deep 72h hydration", "Plumps and softens", "Smooth, bouncy skin"], ar: ["ترطيب عميق 72 ساعة", "يمتلئ وينعم البشرة", "وجه ناعم ومرن"] } },
+    { icon: "icon-drop", key: "ha", image: "assets/images/serum-hyaluronique.png", product: "Sérum Acide Hyaluronique", title: { fr: "Acide Hyaluronique", en: "Hyaluronic Acid", ar: "حمض الهيالورونيك" }, benefits: { fr: ["Hydratation profonde 72h", "Repulpe et assouplit", "peau lumineuse et rebondie"], en: ["Deep 72h hydration", "Plumps and softens", "Smooth, bouncy skin"], ar: ["ترطيب عميق 72 ساعة", "يمتلئ وينعم البشرة", "وجه ناعم ومرن"] } },
     { icon: "icon-goat", key: "goat", image: "assets/images/savon-chevre.png", product: "Savon Chèvre", title: { fr: "Lait de Chèvre", en: "Goat Milk", ar: "حليب الماعز" }, benefits: { fr: ["Nettoyage ultra-doux", "Combat les imperfections", "Respect total du microbiome"], en: ["Ultra-gentle cleansing", "Fights blemishes", "Full microbiome respect"], ar: ["تنظيف فائق اللطف", "يحارب الشوائب", "احترام تام للميكروبيوم"] } },
   ];
   const timeline = [
