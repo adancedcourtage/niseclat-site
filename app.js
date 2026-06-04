@@ -254,9 +254,9 @@ document.addEventListener("DOMContentLoaded", () => {
       price: "169 MAD",
       oldPrice: "229 MAD",
       likes: 87,
-      name: { fr: "Gel Nettoyant Visage", en: "Face Cleansing Gel", ar: "جل تنظيف الوجه" },
-      benefit: { fr: "Nettoie en douceur, resserre les pores et laisse la peau fraîche et équilibrée.", en: "Gently cleanses, tightens pores and leaves skin fresh and balanced.", ar: "ينظف بلطف ويضيق المسام ويترك البشرة منتعشة ومتوازنة." },
-      tags: { fr: ["Douceur", "Quotidien", "Éclat"], en: ["Gentle", "Daily", "Glow"], ar: ["لطيف", "يومي", "إشراق"] },
+      name: { fr: "Gel Nettoyant Cleansant", en: "Cleansing Gel", ar: "جل التنظيف" },
+      benefit: { fr: "Action douce & purifiante à l'extrait de Moringa & Cica. Purifie, apaise et respecte tous types de peaux, même sensibles.", en: "Gentle & purifying action with Moringa & Cica extract. Purifies, soothes and respects all skin types, even sensitive.", ar: "فعل لطيف ومنقي بمستخلص المورينغا والسيكا. ينقي ويهدئ ويناسب جميع أنواع البشرة حتى الحساسة." },
+      tags: { fr: ["Moringa & Cica", "Peaux sensibles", "Purifiant"], en: ["Moringa & Cica", "Sensitive skin", "Purifying"], ar: ["مورينغا وسيكا", "بشرة حساسة", "منقي"] },
     },
     {
       id: "ecran-solaire",
@@ -265,9 +265,9 @@ document.addEventListener("DOMContentLoaded", () => {
       price: "99 MAD",
       oldPrice: "120 MAD",
       likes: 73,
-      name: { fr: "Écran Solaire", en: "Sunscreen", ar: "واقي الشمس" },
-      benefit: { fr: "Protège des UVA/UVB, hydrate et préserve l'éclat naturel sans résidu blanc.", en: "Protects against UVA/UVB, hydrates and preserves natural glow with no white cast.", ar: "يحمي من الأشعة فوق البنفسجية ويرطب ويحافظ على الإشراقة دون أثر أبيض." },
-      tags: { fr: ["SPF", "Pregnancy Safe", "Hydratant"], en: ["SPF", "Pregnancy Safe", "Hydrating"], ar: ["SPF", "آمن للحمل", "مرطب"] },
+      name: { fr: "Écran Solaire SPF 50+", en: "Sunscreen SPF 50+", ar: "واقي شمس SPF 50+" },
+      benefit: { fr: "Protection large spectre UVA + UVB haute protection. Sun fluid anti-âge, 50ml — sans résidu blanc, pregnancy safe.", en: "Broad spectrum UVA + UVB high protection. Anti-aging sun fluid, 50ml — no white cast, pregnancy safe.", ar: "حماية عريضة الطيف UVA + UVB. فلويد شمسي مضاد للشيخوخة، 50 مل — بدون أثر أبيض، آمن للحمل." },
+      tags: { fr: ["SPF 50+", "Anti-âge", "50 ml"], en: ["SPF 50+", "Anti-aging", "50 ml"], ar: ["SPF 50+", "مضاد للشيخوخة", "50 مل"] },
     },
   ];
 
