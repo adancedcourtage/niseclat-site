@@ -384,7 +384,8 @@ document.addEventListener("DOMContentLoaded", () => {
     $$("[data-i18n]").forEach((node) => { node.textContent = text(node.dataset.i18n); });
     $$("[data-i18n-html]").forEach((node) => { node.innerHTML = text(node.dataset.i18nHtml); });
     $$("[data-i18n-placeholder]").forEach((node) => { node.placeholder = text(node.dataset.i18nPlaceholder); });
-    $$("#languageToggle button").forEach((button) => button.classList.toggle("active", button.dataset.lang === state.lang));
+    // Sync les deux sélecteurs (header desktop + drawer mobile)
+    $$("[data-lang]").forEach((button) => button.classList.toggle("active", button.dataset.lang === state.lang));
     localStorage.setItem("niseclat_lang", state.lang);
     renderAll();
   }

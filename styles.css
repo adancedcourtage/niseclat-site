@@ -282,6 +282,32 @@ body[dir="rtl"] .mobile-drawer.is-open { transform: translateX(0); }
   font-size: clamp(38px, 11vw, 56px);
   line-height: 1;
 }
+/* Sélecteur de langue dans le drawer mobile */
+.drawer-lang {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.drawer-lang button {
+  padding: 8px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  background: transparent;
+  transition: border-color 200ms, color 200ms, background 200ms;
+}
+.drawer-lang button:hover,
+.drawer-lang button.active {
+  border-color: var(--gold);
+  color: var(--olive-deep);
+  background: rgba(201,168,76,0.1);
+}
 
 .hero-section {
   display: grid;
