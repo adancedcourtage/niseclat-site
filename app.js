@@ -234,7 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
       likes: 101,
       name: { fr: "Savon Chèvre", en: "Goat Milk Soap", ar: "صابونة حليب الماعز" },
       benefit: { fr: "Nettoyant et masque doux pour boutons, taches et peau irrégulière.", en: "Gentle cleanser and mask for blemishes, spots and uneven skin.", ar: "غسول وماسك لطيف للحبوب والبقع وعدم توحد البشرة." },
-      tags: { fr: ["2-en-1", "Peau nette"], en: ["2-in-1", "Clear skin"], ar: ["2 في 1", "بشرة صافية"] },
+      tags: { fr: ["2-en-1", "Peau douce"], en: ["2-in-1", "Smooth skin"], ar: ["2 في 1", "بشرة ناعمة"] },
     },
     {
       id: "pack",
@@ -322,7 +322,17 @@ document.addEventListener("DOMContentLoaded", () => {
         revealObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.08, rootMargin: "0px 0px -30px 0px" });
+  }, { threshold: 0.04, rootMargin: "0px 0px 120px 0px" });
+
+  // Fallback : révèle immédiatement tous les éléments déjà dans le viewport
+  function revealInViewport() {
+    document.querySelectorAll("[data-reveal]:not(.is-visible)").forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight + 150 && rect.bottom > -150) {
+        el.classList.add("is-visible");
+      }
+    });
+  }
 
   function observeReveals(scope = document) {
     requestAnimationFrame(() => {
@@ -330,6 +340,8 @@ document.addEventListener("DOMContentLoaded", () => {
         node.style.transitionDelay = `${Math.min(index * 80, 400)}ms`;
         revealObserver.observe(node);
       });
+      // Révèle immédiatement les éléments déjà visibles
+      setTimeout(revealInViewport, 80);
     });
   }
 
@@ -1087,6 +1099,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ──────────────────────────────────────────────────────────
+
+  // Révèle les éléments lors du scroll et de la navigation par ancres
+  window.addEventListener("scroll", revealInViewport, { passive: true });
+  window.addEventListener("hashchange", () => setTimeout(revealInViewport, 200));
+  // Révèle immédiatement au chargement
+  setTimeout(revealInViewport, 300);
 
   localize();
   observeReveals();
