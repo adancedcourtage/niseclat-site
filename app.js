@@ -776,17 +776,43 @@ document.addEventListener("DOMContentLoaded", () => {
     const productLike = event.target.closest("[data-like-product]");
     if (productLike) {
       const id = productLike.dataset.likeProduct;
+      // Toggle état
       state.likedProducts.has(id) ? state.likedProducts.delete(id) : state.likedProducts.add(id);
+      const isNowLiked = state.likedProducts.has(id);
+      // Mise à jour visuelle immédiate (sans re-render)
+      productLike.classList.toggle("is-active", isNowLiked);
+      productLike.setAttribute("aria-pressed", String(isNowLiked));
+      // Animation pop
+      productLike.classList.remove("is-popping");
+      void productLike.offsetWidth; // force reflow pour relancer l'animation
+      productLike.classList.add("is-popping");
+      productLike.addEventListener("animationend", () => productLike.classList.remove("is-popping"), { once: true });
+      // Mise à jour du compteur
+      const countSpan = productLike.querySelector("span");
+      if (countSpan) {
+        const product = products.find((p) => p.id === id);
+        if (product) countSpan.textContent = product.likes + (isNowLiked ? 1 : 0);
+      }
       persist();
-      renderProducts();
       return;
     }
     const articleLike = event.target.closest("[data-like-article]");
     if (articleLike) {
       const id = articleLike.dataset.likeArticle;
       state.likedArticles.has(id) ? state.likedArticles.delete(id) : state.likedArticles.add(id);
+      const isNowLiked = state.likedArticles.has(id);
+      articleLike.classList.toggle("is-active", isNowLiked);
+      articleLike.setAttribute("aria-pressed", String(isNowLiked));
+      articleLike.classList.remove("is-popping");
+      void articleLike.offsetWidth;
+      articleLike.classList.add("is-popping");
+      articleLike.addEventListener("animationend", () => articleLike.classList.remove("is-popping"), { once: true });
+      const countSpan = articleLike.querySelector("span");
+      if (countSpan) {
+        const article = articles.find((a) => a.id === id);
+        if (article) countSpan.textContent = article.likes + (isNowLiked ? 1 : 0);
+      }
       persist();
-      renderArticles();
       return;
     }
     const step = event.target.closest("[data-step]");
