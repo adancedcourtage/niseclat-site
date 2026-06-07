@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#e8d090"/>
+      <stop offset="45%"  stop-color="#c9a84c"/>
+      <stop offset="100%" stop-color="#9a6f2e"/>
+    </linearGradient>
+  </defs>
+  <!-- Fond blanc circulaire -->
+  <circle cx="256" cy="256" r="256" fill="#fff"/>
+  <!-- Double cercle doré -->
+  <circle cx="256" cy="256" r="234" fill="none" stroke="url(#g)" stroke-width="10"/>
+  <circle cx="256" cy="256" r="206" fill="none" stroke="url(#g)" stroke-width="5"/>
+  <!-- Goutte fine sur le I -->
+  <path d="M256,90 C253,98 251,108 251,118 C251,128 253.5,133 256,133 C258.5,133 261,128 261,118 C261,108 259,98 256,90Z" fill="url(#g)"/>
+  <!-- Texte NIS -->
+  <text x="256" y="360"
+        text-anchor="middle"
+        font-family="Playfair Display, Georgia, serif"
+        font-size="158"
+        font-weight="600"
+        fill="url(#g)"
+        letter-spacing="14">NIS</text>
+</svg>
